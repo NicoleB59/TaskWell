@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Health Feedback</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f0f5f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header {
+      background-color: darkseagreen;
+      color: white;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .feedback-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background-color: darkseagreen;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #8fbc8f;
+    }
+
+        .navbar-custom {
+        background-color: darkseagreen;
+    }
+    .navbar-custom .nav-link,
+    .navbar-custom .navbar-brand {
+        color: white;
+    }
+    .navbar-custom .nav-link:hover {
+        color: #f0f0f0;
+    }
+    .btn-outline-light {
+        color: white;
+        border-color: white;
+    }
+    .btn-outline-light:hover {
+        background-color: #8fbc8f;
+        color: white;
+        border-color: #8fbc8f;
+    }
+
+
+    footer {
+        background-color: darkseagreen;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">TaskWell</a>
+
+    <!-- Flex container for toggler + Register/Login beside each other -->
+    <div class="d-flex align-items-center d-lg-none">
+        <a class="btn btn-outline-light me-2" href="{% url 'register' %}">Register</a>
+        <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'task' %}">Task</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'analytics' %}">Analytics</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'trackingpage' %}">Tracking</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'notif' %}">Notifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reflectiveJ' %}">Reflective Journal</a></li>
+      </ul>
+
+      <!-- Register/Login button (for large screens) -->
+      <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'register' %}">Register/Login</a>
+    </div>
+  </div>
+</nav>
+
+  <header class="header">
+    <h1>Submit Health Feedback</h1>
+    <p>Share your health data and journal reflections with your coach</p>
+  </header>
+
+  <div class="feedback-container">
+    <form action="/submit-feedback/" method="post">
+      <!-- Include CSRF token if using Django -->
+      <!-- {% csrf_token %} -->
+
+      <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" class="form-control" id="date" name="date" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="weight" class="form-label">Weight (kg)</label>
+        <input type="number" step="0.1" class="form-control" id="weight" name="weight" placeholder="e.g., 68.5" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="steps" class="form-label">Steps Walked</label>
+        <input type="number" class="form-control" id="steps" name="steps" placeholder="e.g., 10000" />
+      </div>
+
+      <div class="mb-3">
+        <label for="mood" class="form-label">Mood</label>
+        <select class="form-select" id="mood" name="mood" required>
+          <option value="">Select mood</option>
+          <option value="happy">😊 Happy</option>
+          <option value="neutral">😐 Neutral</option>
+          <option value="sad">😞 Sad</option>
+          <option value="stressed">😰 Stressed</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="thoughts" class="form-label">Thoughts</label>
+        <textarea class="form-control" id="thoughts" name="thoughts" rows="5" placeholder="Share your thoughts, habits, or anything on your mind..." required></textarea>
+      </div>
+
+
+      <button type="submit" class="btn btn-primary w-100">Send to Coach</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

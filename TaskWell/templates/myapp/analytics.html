@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskWell - Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .dashboard-header {
+    background-color: darkseagreen;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .navbar {
+    background-color: darkseagreen !important;
+  }
+  .navbar .navbar-brand,
+  .navbar .nav-link {
+    color: white !important;
+  }
+  .navbar .nav-link:hover {
+    color: #e0f7ea !important;
+  }
+  .footer {
+    background-color: darkseagreen;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 5rem;
+  }
+  .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+</style>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">TaskWell</a>
+
+    <!-- Flex container for toggler + Register/Login beside each other -->
+    <div class="d-flex align-items-center d-lg-none">
+        <a class="btn btn-outline-light me-2" href="{% url 'register' %}">Register</a>
+        <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'task' %}">Task</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'trackingpage' %}">Tracking</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'notif' %}">Notifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'reflectiveJ' %}">Reflective Journal</a></li>
+      </ul>
+
+      <!-- Register/Login button (for large screens) -->
+      <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'register' %}">Register/Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Dashboard Header -->
+<header class="dashboard-header">
+  <h1>Your Health Dashboard</h1>
+  <p>Track your progress and gain insights</p>
+</header>
+
+<!-- Analytics Section -->
+<div class="container chart-container">
+  <div class="row g-4">
+    <!-- Activity Chart -->
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h5 class="card-title text-center">Weekly Activity</h5>
+        <canvas id="activityChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Mood Tracker -->
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h5 class="card-title text-center">Mood Trends</h5>
+        <canvas id="moodChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mt-4">
+    <!-- Goals Progress -->
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h5 class="card-title text-center">Goal Progress</h5>
+        <canvas id="goalChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Summary Insights -->
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h5 class="card-title text-center">Summary</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">You completed 5 out of 7 daily goals this week ✅</li>
+          <li class="list-group-item">Average mood: 😊 Positive</li>
+          <li class="list-group-item">Total active time: 6.5 hours</li>
+          <li class="list-group-item">Keep up the great work! 💪</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  &copy; 2025 TaskWell. All rights reserved.
+</footer>
+
+<script>
+  // Activity Chart
+  new Chart(document.getElementById('activityChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Active Minutes',
+        data: [30, 45, 20, 60, 50, 35, 40],
+        backgroundColor: '#00b894'
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+// Mood Tracker Chart
+new Chart(document.getElementById('moodChart'), {
+type: 'line',
+data: {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  datasets: [{
+    label: 'Mood (1-5)',
+    data: [3, 4, 2, 5, 4, 4, 5],
+    borderColor: '#6c5ce7',
+    backgroundColor: 'rgba(108, 92, 231, 0.2)',
+    fill: true,
+    tension: 0.4
+  }]
+},
+options: {
+  responsive: true,
+  scales: {
+    y: { min: 1, max: 5 }
+  }
+}
+});
+
+  // Goal Progress Chart
+  new Chart(document.getElementById('goalChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Completed', 'Remaining'],
+      datasets: [{
+        data: [5, 2],
+        backgroundColor: ['#00cec9', '#dfe6e9']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskWell</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: darkseagreen;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: scale(1.03);
+        }
+        .navbar-custom {
+            background-color: darkseagreen;
+        }
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-brand {
+            color: white;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #f0f0f0;
+        }
+        .btn-outline-light {
+            color: white;
+            border-color: white;
+        }
+        .btn-outline-light:hover {
+            background-color: #8fbc8f;
+            color: white;
+            border-color: #8fbc8f;
+        }
+
+
+        footer {
+            background-color: darkseagreen;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">TaskWell</a>
+
+    <!-- Flex container for toggler + Register/Login beside each other -->
+    <div class="d-flex align-items-center d-lg-none">
+        <a class="btn btn-outline-light me-2" href="{% url 'register' %}">Register</a>
+        <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'task' %}">Task</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'analytics' %}">Analytics</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'trackingpage' %}">Tracking</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'notif' %}">Notifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reflectiveJ' %}">Reflective Journal</a></li>
+      </ul>
+
+      <!-- Register/Login button (for large screens) -->
+      <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'register' %}">Register/Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1 class="display-4">Welcome to TaskWell</h1>
+        <p class="lead">Track your health, manage tasks, reflect, and grow — all in one place.</p>
+        <a href="#" class="btn btn-light btn-lg mt-3">Get Started</a>
+    </div>
+</section>
+
+<!-- Features -->
+<!-- Features -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4 text-center">Features</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Analytics</h5>
+                        <p class="card-text">Gain insights from your habits and progress with visual charts and trends.</p>
+                        <a href="{% url 'analytics' %}" class="btn btn-outline-primary">Explore Analytics</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Tracking</h5>
+                        <p class="card-text">Track your health, mood, and productivity across your daily routines.</p>
+                        <a href="{% url 'trackingpage' %}" class="btn btn-outline-primary">Start Tracking</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card feature-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Task Management</h5>
+                        <p class="card-text">Stay on top of your to-dos with powerful task planning and reminders.</p>
+                        <a href="{% url 'task' %}" class="btn btn-outline-primary">Manage Tasks</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 TaskWell. All rights reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
