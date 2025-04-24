@@ -8,113 +8,53 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
       background-color: #e6f7f1;
       color: #333;
     }
-
     header {
       background-color: darkseagreen;
       padding: 20px;
       text-align: center;
       color: white;
     }
-
     .container {
       max-width: 800px;
       margin: 40px auto;
-      background: #ffffff;
+      background: #fff;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-
     h2 {
       color: darkseagreen;
       text-align: center;
     }
-
-    form {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 10px;
+    .btn {
       border-radius: 8px;
-      border: 1px solid #ccc;
     }
-
-    button {
-      background-color: darkseagreen;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      color: white;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: darkseagreen;
-      color: white;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
     li {
-      background: darkseagreen;
+      background: #d8ecd8;
       margin-bottom: 10px;
       padding: 12px 16px;
       border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-left: 4px solid darkseagreen;
     }
-
-    .task-actions button {
-      margin-left: 8px;
+    .navbar-custom {
+      background-color: darkseagreen;
     }
-
-    .task-text {
-      flex: 1;
+    .navbar-custom .nav-link,
+    .navbar-custom .navbar-brand {
+      color: white;
     }
-
-        .navbar-custom {
-            background-color: darkseagreen;
-        }
-        .navbar-custom .nav-link,
-        .navbar-custom .navbar-brand {
-            color: white;
-        }
-        .navbar-custom .nav-link:hover {
-            color: #f0f0f0;
-        }
-        .btn-outline-light {
-            color: white;
-            border-color: white;
-        }
-        .btn-outline-light:hover {
-            background-color: #8fbc8f;
-            color: white;
-            border-color: #8fbc8f;
-        }
-
-        footer {
-            background-color: darkseagreen;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: 40px;
-        }
+    footer {
+      background-color: darkseagreen;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
@@ -123,28 +63,17 @@
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">TaskWell</a>
-
-    <!-- Flex container for toggler + Register/Login beside each other -->
-    <div class="d-flex align-items-center d-lg-none">
-        <a class="btn btn-outline-light me-2" href="{% url 'register' %}">Register</a>
-        <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'task' %}">Task</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'analytics' %}">Analytics</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'trackingpage' %}">Tracking</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'notif' %}">Notifications</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'reflectiveJ' %}">Reflective Journal</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="{% url 'task' %}">Task</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'trackingpage' %}">Tracking</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'notif' %}">Notifications</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'reflectiveJ' %}">Reflective Journal</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'ManagerDashboard' %}">ManDash</a></li>
       </ul>
-
-      <!-- Register/Login button (for large screens) -->
       <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'register' %}">Register/Login</a>
     </div>
   </div>
@@ -157,67 +86,34 @@
 <div class="container">
   <h2>Your Tasks</h2>
 
-  <form id="taskForm">
-    <input type="text" id="taskInput" placeholder="e.g. Do 10 pushups" required>
-    <button type="submit">Add Task</button>
+  <!-- Task Add Form -->
+  <form method="post" action="{% url 'add_task' %}" class="d-flex gap-2 mb-4">
+    {% csrf_token %}
+    <input type="text" name="task" class="form-control" placeholder="e.g. Finish Assignment" required>
+    <button type="submit" class="btn btn-success">Add Task</button>
   </form>
 
-  <ul id="taskList">
-    <!-- Task items will go here -->
-    <li>
-      <span class="task-text">Morning Yoga</span>
-      <div class="task-actions">
-        <button onclick="editTask(this)">Edit</button>
-        <button onclick="deleteTask(this)">Delete</button>
-      </div>
-    </li>
+  <!-- Task List -->
+  <ul class="list-unstyled">
+    {% for task in tasks %}
+      <li>
+        <div class="task-text">
+          <strong>{{ task.task }}</strong> - <em>{{ task.status }}</em>
+        </div>
+        <div>
+          <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+        </div>
+      </li>
+    {% empty %}
+      <li>No tasks yet. Add one above!</li>
+    {% endfor %}
   </ul>
 </div>
 
 <footer>
   &copy; 2025 TaskWell. All rights reserved.
 </footer>
-
-<script>
-  const taskForm = document.getElementById('taskForm');
-  const taskInput = document.getElementById('taskInput');
-  const taskList = document.getElementById('taskList');
-
-  taskForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const taskText = taskInput.value.trim();
-    if (taskText !== '') {
-      addTask(taskText);
-      taskInput.value = '';
-    }
-  });
-
-  function addTask(text) {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <span class="task-text">${text}</span>
-      <div class="task-actions">
-        <button onclick="editTask(this)">Edit</button>
-        <button onclick="deleteTask(this)">Delete</button>
-      </div>
-    `;
-    taskList.appendChild(li);
-  }
-
-  function deleteTask(button) {
-    const li = button.closest('li');
-    taskList.removeChild(li);
-  }
-
-  function editTask(button) {
-    const li = button.closest('li');
-    const span = li.querySelector('.task-text');
-    const newTask = prompt('Edit your task:', span.textContent);
-    if (newTask !== null && newTask.trim() !== '') {
-      span.textContent = newTask.trim();
-    }
-  }
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -15,13 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.my_view, name='index'),         # Root URL shows index.html
+    path('', views.my_view, name='index'),
     path('index/', views.my_view, name='index'),   # /index/ also shows index.html
-    path('task/', views.my_view2, name='task'),    # /task/ shows task.html
+    path('task/', views.task_list, name='task'),    # /task/ shows task.html
+    path('task/add', views.add_task, name='ad_task'),
+    path('task/edit/<int:task_id>/', views.edit_task, name='edit_task'),
+    path('task/delete/<int:task_id>/', views.delete_task, name='delete_task'),
     path('analytics/', views.my_view3, name='analytics'),
     path('trackingpage/', views.my_view4, name='trackingpage'),
     path('notif/', views.my_view5, name='notif'),
@@ -29,6 +32,6 @@ urlpatterns = [
     path('login/', views.my_view7, name='login'),
     path('feedback/', views.my_view8, name='feedback'),
     path('reflectiveJ/', views.my_view9, name='reflectiveJ'),
-    path('coachfeedback/', views.my_view9, name='coachfeedback'),
+    path('coachfeedback/', views.my_view10, name='coachfeedback'),
+    path('ManagerDashboard/', views.my_view11, name='ManagerDashboard'),
 ]
-
