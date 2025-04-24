@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflective Journal - TaskWell</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+        .hero {
+            background-color: darkseagreen;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .navbar-custom {
+            background-color: darkseagreen;
+        }
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-brand {
+            color: white;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #f0f0f0;
+        }
+        .btn-outline-light {
+            color: white;
+            border-color: white;
+        }
+        .btn-outline-light:hover {
+            background-color: #8fbc8f;
+            color: white;
+            border-color: #8fbc8f;
+        }
+        footer {
+            background-color: darkseagreen;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+        .reflective-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-submit {
+            background-color: darkseagreen;
+            color: white;
+        }
+        .btn-submit:hover {
+            background-color: #8fbc8f;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">TaskWell</a>
+    <div class="d-flex align-items-center d-lg-none">
+        <a class="btn btn-outline-light me-2" href="{% url 'register' %}">Register</a>
+        <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'task' %}">Task</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'analytics' %}">Analytics</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'trackingpage' %}">Tracking</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'notif' %}">Notifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reflectiveJ' %}">Reflective Journal</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'ManagerDashboard' %}">ManDash</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'coachfeedback' %}">Health Coach</a></li>
+      </ul>
+      <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'register' %}">Register</a>
+      <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'login' %}">Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1 class="display-4">Reflective Journal</h1>
+        <p class="lead">Take a moment to reflect on your journey. Your thoughts and reflections matter to us.</p>
+    </div>
+</section>
+
+<!-- Reflective Journal Form -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Submit Your Reflective Journal</h2>
+        <div class="reflective-form">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}  <!-- Render the form fields -->
+                <button type="submit" class="btn btn-submit btn-lg w-100">Submit Journal</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 TaskWell. All rights reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

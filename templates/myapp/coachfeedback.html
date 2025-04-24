@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coach Feedback</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f7f9f7;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header {
+      background-color: darkseagreen;
+      color: white;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .feedback-review-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: 20px;
+      color: darkseagreen;
+    }
+
+    .btn-success {
+      background-color: darkseagreen;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #8fbc8f;
+    }
+
+    .navbar-custom {
+        background-color: darkseagreen;
+    }
+    .navbar-custom .nav-link,
+    .navbar-custom .navbar-brand {
+        color: white;
+    }
+    .navbar-custom .nav-link:hover {
+        color: #f0f0f0;
+    }
+    .btn-outline-light {
+        color: white;
+        border-color: white;
+    }
+    .btn-outline-light:hover {
+        background-color: #8fbc8f;
+        color: white;
+        border-color: #8fbc8f;
+    }
+
+    footer {
+        background-color: darkseagreen;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">TaskWell</a>
+
+        <!-- Flex container for toggler + Register/Login beside each other -->
+        <div class="d-flex align-items-center d-lg-none">
+            <a class="btn btn-outline-light me-2" href="{% url 'register' %}">Register</a>
+            <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+              <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'coachfeedback' %}">Health Coach Feedback</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'ManagerDashboard' %}">ManDash</a></li>
+          </ul>
+
+          <!-- Register/Login button (for large screens) -->
+            <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'register' %}">Register</a>
+            <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'login' %}">Login</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="header">
+      <h1>Coach Monitoring & Feedback</h1>
+      <p>Review and respond to health submissions from premium users</p>
+    </header>
+
+<!-- Feedback submission and response panel -->
+    <div class="feedback-review-container">
+        <h5 class="section-title">Health Coach Feedback</h5>
+
+        {% for feedback in coachFeed_data %}
+            <div class="mb-3 border rounded p-3 bg-light">
+                <p><strong>Feedback:</strong> {{ feedback.feedback_text }}</p>
+                <p><strong>Submitted:</strong> {{ feedback.date_submitted }}</p>
+
+                <form method="post" class="mt-2">
+                    {% csrf_token %}
+                    <div class="mb-2">
+                        <textarea name="response_text" class="form-control" placeholder="Write a response..." rows="3" required></textarea>
+                        <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                    </div>
+                    <button type="submit" class="btn btn-success">Send Response</button>
+                </form>
+
+                {% if feedback.response %}
+                    <hr>
+                    <p><strong>Coach Response:</strong> {{ feedback.response }}</p>
+                    <p><em>Responded:</em> {{ feedback.date_responded }}</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No feedback submitted yet.</p>
+        {% endfor %}
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

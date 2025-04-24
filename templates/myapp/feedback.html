@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Health Feedback</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f0f5f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header {
+      background-color: darkseagreen;
+      color: white;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .feedback-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background-color: darkseagreen;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #8fbc8f;
+    }
+
+    .navbar-custom {
+        background-color: darkseagreen;
+    }
+    .navbar-custom .nav-link,
+    .navbar-custom .navbar-brand {
+        color: white;
+    }
+    .navbar-custom .nav-link:hover {
+        color: #f0f0f0;
+    }
+    .btn-outline-light {
+        color: white;
+        border-color: white;
+    }
+    .btn-outline-light:hover {
+        background-color: #8fbc8f;
+        color: white;
+        border-color: #8fbc8f;
+    }
+
+    footer {
+        background-color: darkseagreen;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">TaskWell</a>
+
+    <!-- Flex container for toggler + Register/Login beside each other -->
+    <div class="d-flex align-items-center d-lg-none">
+        <a class="btn btn-outline-light me-2" href="{% url 'register' %}">Register</a>
+        <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'task' %}">Task</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'analytics' %}">Analytics</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'trackingpage' %}">Tracking</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'notif' %}">Notifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reflectiveJ' %}">Reflective Journal</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'ManagerDashboard' %}">ManDash</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'coachfeedback' %}">Health Coach</a></li>
+      </ul>
+
+      <!-- Register/Login button (for large screens) -->
+        <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'register' %}">Register</a>
+        <a class="btn btn-outline-light ms-lg-3 d-none d-lg-inline" href="{% url 'login' %}">Login</a>
+    </div>
+  </div>
+</nav>
+
+
+<header class="header">
+    <h1>Submit Health Feedback</h1>
+    <p>Share your health data and journal reflections with your coach</p>
+</header>
+
+<div class="feedback-container">
+    <form method="POST">
+        <!-- CSRF Token for Django security -->
+        {% csrf_token %}
+
+        <!-- Date Field -->
+        <div class="mb-3">
+            <label for="id_date" class="form-label">Date</label>
+            {{ form.date }}
+        </div>
+
+        <!-- Weight Field -->
+        <div class="mb-3">
+            <label for="id_weight" class="form-label">Weight (kg)</label>
+            {{ form.weight }}
+        </div>
+
+        <!-- Sleep Hours Field -->
+        <div class="mb-3">
+            <label for="id_sleep_hours" class="form-label">Sleep Hours</label>
+            {{ form.sleep_hours }}
+        </div>
+
+        <!-- Mood Field -->
+        <div class="mb-3">
+            <label for="id_mood" class="form-label">Mood</label>
+            {{ form.mood }}
+        </div>
+
+        <!-- Thoughts Field -->
+        <div class="mb-4">
+            <label for="id_thoughts" class="form-label">Thoughts</label>
+            {{ form.thoughts }}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Send to Coach</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
